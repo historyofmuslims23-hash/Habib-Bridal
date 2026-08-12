@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habib Bridal | Pret, Bridal &amp; Unstitched</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Continuous Scrolling Announcement Bar -->
+  <div class="announcement-bar">
+    <div class="ticker-wrapper">
+      <div class="ticker-content">
+        <span>✨ Free Delivery All Over Pakistan</span>
+        <span>🌍 Express Worldwide Shipping Available</span>
+        <span>📍 Based in Faisalabad, Countrywide Express Shipping</span>
+        <span>💎 Pret Wear, Bridal & Unstitched Collections</span>
+        <span>🔄 7-Day Return Policy on Every Product</span>
+      </div>
+      <!-- Duplicate content to create seamless infinite loop -->
+      <div class="ticker-content" aria-hidden="true">
+        <span>✨ Free Delivery All Over Pakistan</span>
+        <span>🌍 Express Worldwide Shipping Available</span>
+        <span>📍 Based in Faisalabad, Countrywide Express Shipping</span>
+        <span>💎 Pret Wear, Bridal & Unstitched Collections</span>
+        <span>🔄 7-Day Return Policy on Every Product</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand-logo">
+        
+        <img src="Logo.png" alt="Habib Bridal Logo" class="nav-logo-img">
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#shop">Shop Collections</a></li>
+        <li><a href="aboutus.html">Our Story</a></li>
+        <li><a href="javascript:void(0)" onclick="toggleTrackingModal()">Track Order</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="ai-trigger-btn" onclick="toggleAiChat()" title="Ask AI Stylist">
+          <i class="fa-solid fa-sparkles"></i>
+          <span>AI Stylist</span>
+        </button>
+        <button class="cart-btn" onclick="toggleCartDrawer()">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span id="cart-count" class="cart-badge">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero-section">
+    <div class="hero-content">
+      <span class="hero-subtitle">Elegance Redefined</span>
+      <h1 class="hero-title">Curated Couture for Every Occasion</h1>
+      <p class="hero-description">Discover beautifully crafted pret wear, exquisite bridal ensembles, and premium unstitched fabric — designed to elevate your everyday and festive wardrobe.</p>
+      <div class="hero-cta-group">
+        <a href="#shop" class="btn btn-primary">Explore Collection</a>
+        <button onclick="toggleAiChat()" class="btn btn-outline"><i class="fa-solid fa-wand-magic-sparkles"></i> Consult AI Stylist</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Shop Section -->
+  <section id="shop" class="shop-section">
+    <div class="section-header">
+      <span class="section-badge">The Collection</span>
+      <h2>Elegantly Stitched & Curated Styles</h2>
+      <div class="gold-divider"></div>
+    </div>
+
+    <!-- Category Filter Bar -->
+    <div class="filter-container">
+      <button class="filter-btn active" onclick="filterProducts('all')">All Items</button>
+      <button class="filter-btn" onclick="filterProducts('pret-wear')"><i class="fa-solid fa-person-dress"></i> Pret Wear</button>
+      <button class="filter-btn" onclick="filterProducts('bridal')"><i class="fa-solid fa-ring"></i> Bridal</button>
+      <button class="filter-btn" onclick="filterProducts('unstitched')"><i class="fa-solid fa-scroll"></i> Unstitched</button>
+    </div>
+
+    <!-- Product Grid -->
+    <div id="product-grid" class="product-grid">
+      <!-- Dynamic rendering via JS -->
+    </div>
+  </section>
+
+  <!-- Floating AI Assistant Button -->
+  <div class="floating-ai-btn" onclick="toggleAiChat()">
+    <i class="fa-solid fa-sparkles"></i>
+    <span>Ask AI Stylist</span>
+  </div>
+
+  <!-- AI Stylist Chat Drawer -->
+  <div id="ai-chat-drawer" class="ai-drawer">
+    <div class="ai-drawer-header">
+      <div class="ai-brand-info">
+        <div class="ai-avatar"><i class="fa-solid fa-sparkles"></i></div>
+        <div>
+          <h3>Habib Bridal Style AI</h3>
+          <span class="ai-status"><span class="status-dot"></span> Online Assistant</span>
+        </div>
+      </div>
+      <button class="close-btn" onclick="toggleAiChat()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div id="ai-messages" class="ai-messages-container">
+      <div class="message ai-message">
+        Hello! I am your personal <strong>Habib Bridal Style Assistant</strong>. Tell me about your space, preferred colors, or the occasion you're shopping for, and I'll curate the perfect recommendation!
+      </div>
+    </div>
+
+    <div class="ai-quick-prompts">
+      <button onclick="sendQuickPrompt('Suggest a pret wear outfit for a festive occasion')">👗 Pret Wear</button>
+      <button onclick="sendQuickPrompt('Show me bridal collection options')">💍 Bridal</button>
+      <button onclick="sendQuickPrompt('What unstitched fabric suits a summer wedding?')">🧵 Unstitched Picks</button>
+    </div>
+
+    <div class="ai-input-box">
+      <input type="text" id="ai-user-input" placeholder="Ask for recommendations..." onkeypress="handleAiKeyPress(event)">
+      <button onclick="sendAiMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <!-- Cart Slide-Over Drawer -->
+  <div id="cart-drawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3>Your Shopping Bag</h3>
+      <button class="close-btn" onclick="toggleCartDrawer()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div id="cart-items" class="cart-items">
+      <!-- Dynamic cart content -->
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-summary-line">
+        <span>Subtotal</span>
+        <span id="cart-subtotal">PKR 0</span>
+      </div>
+      <div class="cart-summary-line">
+        <span>Delivery</span>
+        <span class="free-text">FREE</span>
+      </div>
+      <div class="cart-summary-line total-line">
+        <span>Total</span>
+        <span id="cart-total">PKR 0</span>
+      </div>
+
+      <button id="checkout-btn" class="btn btn-primary btn-block" onclick="openCheckoutModal()" disabled>
+        Proceed to Checkout
+      </button>
+    </div>
+  </div>
+
+  <!-- Order Tracking Modal -->
+  <div id="tracking-modal" class="modal-overlay" onclick="if(event.target===this) toggleTrackingModal()">
+    <div class="modal-card tracking-card">
+      <div class="modal-header">
+        <h3><span class="tracking-header-icon"><i class="fa-solid fa-truck-fast"></i></span>Track Your Order</h3>
+        <button class="close-btn" onclick="toggleTrackingModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">Enter your Habib Bridal Order ID (e.g. DRZH-8921) to check real-time dispatch and delivery status.</p>
+        <div class="tracking-input-group">
+          <i class="fa-solid fa-hashtag input-icon"></i>
+          <input type="text" id="tracking-id-input" placeholder="Enter Order ID..." onkeypress="if(event.key==='Enter') trackOrder()">
+          <button onclick="trackOrder()" class="btn btn-primary">Track</button>
+        </div>
+
+        <div id="tracking-result" class="tracking-result">
+          <!-- Tracking timeline output -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div id="checkout-modal" class="modal-overlay" onclick="if(event.target===this) closeCheckoutModal()">
+    <div class="modal-card checkout-card">
+      <div class="modal-header">
+        <h3>Complete Your Order</h3>
+        <button class="close-btn" onclick="closeCheckoutModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <form id="checkout-form" onsubmit="processOrder(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" required placeholder="e.g. Shaffan Masud">
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" required placeholder="+92 300 0000000">
+            </div>
+            <div class="form-group">
+              <label>Province</label>
+              <select required id="province-select" onchange="populateCities()">
+                <option value="" disabled selected>Select Province</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>City</label>
+              <select required id="city-select">
+                <option value="" disabled selected>Select City</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <label>Street Address / House No.</label>
+              <input type="text" required id="street-address-input" placeholder="House #, Street, Area">
+            </div>
+            <div class="form-group full-width">
+              <label>Payment Method</label>
+              <div class="cod-only-notice">
+                <i class="fa-solid fa-money-bill-wave"></i> Cash on Delivery (COD) — Nationwide
+              </div>
+            </div>
+          </div>
+
+          <div class="checkout-summary">
+            <h4>Order Total: <span id="checkout-final-total">PKR 0</span></h4>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Confirm & Place Order</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Success Modal -->
+  <div id="order-success-modal" class="modal-overlay" onclick="if(event.target===this) closeOrderSuccessModal()">
+    <div class="modal-card success-card">
+      <button class="close-btn success-close-btn" onclick="closeOrderSuccessModal()"><i class="fa-solid fa-xmark"></i></button>
+      <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+      <div class="success-delivery-badge"><i class="fa-solid fa-truck-fast"></i> Free Delivery</div>
+      <h2 class="success-heading">Thank You, <span id="success-customer-name">Customer</span>!</h2>
+      <p class="success-subtext">Your order has been placed successfully and will be dispatched shortly.</p>
+      <div class="success-order-code">
+        <span class="success-order-label">Your Order ID</span>
+        <span id="success-order-number">LR-0000</span>
+      </div>
+      <p class="success-hint">Save this ID to track your delivery anytime using "Track Order" above.</p>
+      <button class="btn btn-primary btn-block" onclick="closeOrderSuccessModal()">Continue Shopping</button>
+    </div>
+  </div>
+
+  <!-- Return / Exchange Request Modal -->
+  <div id="return-modal" class="modal-overlay" onclick="if(event.target===this) toggleReturnModal()">
+    <div class="modal-card tracking-card">
+      <div class="modal-header">
+        <h3><span class="tracking-header-icon"><i class="fa-solid fa-rotate-left"></i></span>Request a Return</h3>
+        <button class="close-btn" onclick="toggleReturnModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">
+          Returns are accepted within <strong>7 days of your order date</strong>, and only when: the order was delivered to the wrong address, the item received isn't what you ordered, or it arrived damaged. Enter your Order ID and attach a photo of the order/item below.
+        </p>
+
+        <form id="return-form" onsubmit="submitReturnRequest(event)">
+          <div class="form-group full-width">
+            <label>Order ID</label>
+            <input type="text" id="return-order-id" placeholder="e.g. LR-8921" required>
+          </div>
+          <div class="form-group full-width">
+            <label>Reason for Return</label>
+            <select id="return-reason" required>
+              <option value="" disabled selected>Select a reason</option>
+              <option value="wrong_address">Delivered to the wrong address</option>
+              <option value="not_as_described">Item is not what I ordered</option>
+              <option value="damaged">Item arrived damaged</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group full-width">
+            <label>Photo of Order / Item</label>
+            <input type="file" id="return-image-file" accept="image/*" required>
+          </div>
+          <div class="form-group full-width">
+            <label>Additional Details (optional)</label>
+            <textarea id="return-details" placeholder="Tell us more about the issue..." rows="3"></textarea>
+          </div>
+          <p class="return-error-msg" id="return-error-msg"></p>
+          <button type="submit" class="btn btn-primary btn-block" id="return-submit-btn">Submit Return Request</button>
+        </form>
+
+        <div id="return-result"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <img src="Logo-footer.png" alt="Habib Bridal Logo" class="footer-logo-img">
+        <p>"Habib Bridal is a premier modern destination for premium unstitched fabrics, ready-to-wear pret pieces, and exquisite bridal collections."</p>
+        <p class="location-tag"><i class="fa-solid fa-location-dot"></i> LGF-55, Center Point Plaza, Jaranwala Road, Faisalabad</p>
+        <p class="location-tag"><a href="tel:03215475555"><i class="fa-solid fa-phone"></i> 0321 5475555</a></p>
+        <p class="location-tag"><a href="tel:03326891478"><i class="fa-solid fa-phone"></i> 0332 6891478</a></p>
+      </div>
+      
+      <div class="footer-links">
+        <h4>Customer Care</h4>
+        <ul>
+          <li><a href="javascript:void(0)" onclick="toggleTrackingModal()">Track Package</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="javascript:void(0)" onclick="toggleReturnModal()">Returns & Exchanges</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>Connect</h4>
+        <div class="social-links">
+          <a href="https://www.instagram.com/alikamrancouture.official?igsh=MXZ6MG5wZmtzNWsydg==" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://wa.me/923224155224" target="_blank" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://www.facebook.com/share/1KcytiuJwo/" target="_blank" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Habib Bridal. All Rights Reserved.</p>
+      <p>Developed by <a href="https://masudcollection.com/" target="_blank">SHAFFAN MASUD</a></p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>

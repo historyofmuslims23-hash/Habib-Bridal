@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details | Habib Bridal</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Continuous Scrolling Announcement Bar -->
+  <div class="announcement-bar">
+    <div class="ticker-wrapper">
+      <div class="ticker-content">
+        <span>✨ Free Delivery All Over Pakistan</span>
+        <span>🌍 Express Worldwide Shipping Available</span>
+        <span>📍 Based in Faisalabad, Countrywide Express Shipping</span>
+        <span>💎 Pret Wear, Bridal & Unstitched Collections</span>
+        <span>🔄 7-Day Return Policy on Every Product</span>
+      </div>
+      <div class="ticker-content" aria-hidden="true">
+        <span>✨ Free Delivery All Over Pakistan</span>
+        <span>🌍 Express Worldwide Shipping Available</span>
+        <span>📍 Based in Faisalabad, Countrywide Express Shipping</span>
+        <span>💎 Pret Wear, Bridal & Unstitched Collections</span>
+        <span>🔄 7-Day Return Policy on Every Product</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="Logo.png" alt="Habib Bridal Logo" class="nav-logo-img">
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#shop">Shop Collections</a></li>
+        <li><a href="index.html#about">Our Story</a></li>
+        <li><a href="javascript:void(0)" onclick="toggleTrackingModal()">Track Order</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="ai-trigger-btn" onclick="toggleAiChat()" title="Ask AI Stylist">
+          <i class="fa-solid fa-sparkles"></i>
+          <span>AI Stylist</span>
+        </button>
+        <button class="cart-btn" onclick="toggleCartDrawer()">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span id="cart-count" class="cart-badge">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb Trail -->
+  <div class="breadcrumb-container">
+    <div class="breadcrumb">
+      <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+      <i class="fa-solid fa-chevron-right separator"></i>
+      <a href="index.html#shop">Collections</a>
+      <i class="fa-solid fa-chevron-right separator"></i>
+      <span id="breadcrumb-title">Product</span>
+    </div>
+  </div>
+
+  <!-- Product Details Section -->
+  <section class="product-detail-section" id="product-detail-section" style="display:none;">
+    <div class="product-detail-container">
+
+      <!-- Gallery Column -->
+      <div class="product-gallery">
+        <div class="main-image-wrap">
+          <img id="detail-main-img" src="" alt="Product Image">
+          <span class="product-tag" id="detail-tag">New</span>
+        </div>
+        <div class="product-thumbs" id="detail-thumbs"></div>
+      </div>
+
+      <!-- Information Column -->
+      <div class="product-summary">
+        <span class="product-category-badge"><i class="fa-solid fa-frame-art" id="detail-category-icon"></i> <span id="detail-category-label">Collection</span></span>
+        <h1 class="product-main-title" id="detail-title">Loading...</h1>
+
+        <div class="rating-row" id="detail-rating-row">
+          <div class="stars" id="detail-stars"></div>
+          <span class="rating-count" id="detail-rating-count"></span>
+        </div>
+
+        <p class="product-description" id="detail-description"></p>
+
+        <!-- Quantity & Add to Cart -->
+        <div class="purchase-controls">
+          <div class="quantity-picker">
+            <button class="qty-adjust" onclick="adjustDetailQty(-1)">-</button>
+            <span id="detail-qty-value">1</span>
+            <button class="qty-adjust" onclick="adjustDetailQty(1)">+</button>
+          </div>
+
+          <button class="btn btn-primary add-to-bag-btn" onclick="askCurrentProductOnWhatsApp()">
+            <i class="fa-brands fa-whatsapp"></i> Ask on WhatsApp
+          </button>
+        </div>
+
+        <button class="btn btn-outline btn-block ai-consult-btn" onclick="toggleAiChat()">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> Consult AI Stylist About This Item
+        </button>
+
+        <!-- Product Value Perks -->
+        <div class="product-perks">
+          <div class="perk-item">
+            <i class="fa-solid fa-truck-fast"></i>
+            <div>
+              <strong>Free Delivery in Pakistan</strong>
+              <span>Dispatched within 24-48 hours</span>
+            </div>
+          </div>
+          <div class="perk-item">
+            <i class="fa-solid fa-shield-halved"></i>
+            <div>
+              <strong>100% Quality Guaranteed</strong>
+              <span>Inspect product before acceptance</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <div id="product-not-found" style="display:none; text-align:center; padding: 80px 20px;">
+    <i class="fa-solid fa-triangle-exclamation" style="font-size: 2rem; color: var(--accent-gold); margin-bottom: 14px; display:block;"></i>
+    <h2 style="font-family: var(--font-heading); margin-bottom: 10px;">Product Not Found</h2>
+    <p style="color: var(--text-muted); margin-bottom: 20px;">This product may have been removed or the link is incorrect.</p>
+    <a href="index.html#shop" class="btn btn-primary">Back to Shop</a>
+  </div>
+
+  <!-- Related Products Section -->
+  <section class="shop-section" id="related-products-section" style="display:none;">
+    <div class="section-header">
+      <span class="section-badge">Curated For You</span>
+      <h2>You May Also Like</h2>
+      <div class="gold-divider"></div>
+    </div>
+
+    <div class="product-grid" id="related-products-grid">
+      <!-- Populated dynamically -->
+    </div>
+  </section>
+
+  <!-- Floating AI Assistant Button -->
+  <div class="floating-ai-btn" onclick="toggleAiChat()">
+    <i class="fa-solid fa-sparkles"></i>
+    <span>Ask AI Stylist</span>
+  </div>
+
+  <!-- AI Stylist Chat Drawer -->
+  <div id="ai-chat-drawer" class="ai-drawer">
+    <div class="ai-drawer-header">
+      <div class="ai-brand-info">
+        <div class="ai-avatar"><i class="fa-solid fa-sparkles"></i></div>
+        <div>
+          <h3>Habib Bridal Style AI</h3>
+          <span class="ai-status"><span class="status-dot"></span> Online Assistant</span>
+        </div>
+      </div>
+      <button class="close-btn" onclick="toggleAiChat()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div id="ai-messages" class="ai-messages-container">
+      <div class="message ai-message">
+        Hello! Asking about this product? I can help you with room styling matching, sizing details, or recommendations!
+      </div>
+    </div>
+
+    <div class="ai-input-box">
+      <input type="text" id="ai-user-input" placeholder="Ask for recommendations..." onkeypress="handleAiKeyPress(event)">
+      <button onclick="sendAiMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <!-- Cart Slide-Over Drawer -->
+  <div id="cart-drawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3>Your Shopping Bag</h3>
+      <button class="close-btn" onclick="toggleCartDrawer()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div id="cart-items" class="cart-items">
+      <!-- Dynamic cart items -->
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-summary-line">
+        <span>Subtotal</span>
+        <span id="cart-subtotal">PKR 0</span>
+      </div>
+      <div class="cart-summary-line">
+        <span>Delivery</span>
+        <span class="free-text">FREE</span>
+      </div>
+      <div class="cart-summary-line total-line">
+        <span>Total</span>
+        <span id="cart-total">PKR 0</span>
+      </div>
+
+      <button id="checkout-btn" class="btn btn-primary btn-block" onclick="openCheckoutModal()" disabled>
+        Proceed to Checkout
+      </button>
+    </div>
+  </div>
+
+  <!-- Order Tracking Modal -->
+  <div id="tracking-modal" class="modal-overlay" onclick="if(event.target===this) toggleTrackingModal()">
+    <div class="modal-card tracking-card">
+      <div class="modal-header">
+        <h3><span class="tracking-header-icon"><i class="fa-solid fa-truck-fast"></i></span>Track Your Order</h3>
+        <button class="close-btn" onclick="toggleTrackingModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">Enter your Habib Bridal Order ID (e.g. DRZH-8921) to check real-time dispatch and delivery status.</p>
+        <div class="tracking-input-group">
+          <i class="fa-solid fa-hashtag input-icon"></i>
+          <input type="text" id="tracking-id-input" placeholder="Enter Order ID..." onkeypress="if(event.key==='Enter') trackOrder()">
+          <button onclick="trackOrder()" class="btn btn-primary">Track</button>
+        </div>
+
+        <div id="tracking-result" class="tracking-result">
+          <!-- Tracking timeline output -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Return / Exchange Request Modal -->
+  <div id="return-modal" class="modal-overlay" onclick="if(event.target===this) toggleReturnModal()">
+    <div class="modal-card tracking-card">
+      <div class="modal-header">
+        <h3><span class="tracking-header-icon"><i class="fa-solid fa-rotate-left"></i></span>Request a Return</h3>
+        <button class="close-btn" onclick="toggleReturnModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">
+          Returns are accepted within <strong>7 days of your order date</strong>, and only when: the order was delivered to the wrong address, the item received isn't what you ordered, or it arrived damaged. Enter your Order ID and attach a photo of the order/item below.
+        </p>
+
+        <form id="return-form" onsubmit="submitReturnRequest(event)">
+          <div class="form-group full-width">
+            <label>Order ID</label>
+            <input type="text" id="return-order-id" placeholder="e.g. LR-8921" required>
+          </div>
+          <div class="form-group full-width">
+            <label>Reason for Return</label>
+            <select id="return-reason" required>
+              <option value="" disabled selected>Select a reason</option>
+              <option value="wrong_address">Delivered to the wrong address</option>
+              <option value="not_as_described">Item is not what I ordered</option>
+              <option value="damaged">Item arrived damaged</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group full-width">
+            <label>Photo of Order / Item</label>
+            <input type="file" id="return-image-file" accept="image/*" required>
+          </div>
+          <div class="form-group full-width">
+            <label>Additional Details (optional)</label>
+            <textarea id="return-details" placeholder="Tell us more about the issue..." rows="3"></textarea>
+          </div>
+          <p class="return-error-msg" id="return-error-msg"></p>
+          <button type="submit" class="btn btn-primary btn-block" id="return-submit-btn">Submit Return Request</button>
+        </form>
+
+        <div id="return-result"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <img src="Logo-footer.png" alt="Habib Bridal Logo" class="footer-logo-img">
+        <p>Habib Bridal is a premier modern destination for premium unstitched fabrics, ready-to-wear pret pieces, and exquisite bridal collections.</p>
+        <p class="location-tag"><i class="fa-solid fa-location-dot"></i> Faisalabad, Pakistan</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Customer Care</h4>
+        <ul>
+          <li><a href="javascript:void(0)" onclick="toggleTrackingModal()">Track Package</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="javascript:void(0)" onclick="toggleReturnModal()">Returns & Exchanges</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>Connect</h4>
+        <div class="social-links">
+          <a href="https://www.instagram.com/hs_stlye_collective/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Habib Bridal. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+  <script>
+    const CATEGORY_META = {
+      women: { label: "Women's Collection", icon: "fa-person-dress" },
+      "mother-daughter": { label: "Mother & Daughter Collection", icon: "fa-people-group" },
+      girls: { label: "Girls Collection", icon: "fa-child-dress" },
+      unstitched: { label: "Unstitched Collection", icon: "fa-scroll" }
+    };
+
+    let detailQty = 1;
+    function adjustDetailQty(amount) {
+      detailQty += amount;
+      if (detailQty < 1) detailQty = 1;
+      document.getElementById('detail-qty-value').textContent = detailQty;
+    }
+
+    let CURRENT_PRODUCT_ID = null;
+    function askCurrentProductOnWhatsApp() {
+      if (CURRENT_PRODUCT_ID === null) return;
+      askOnWhatsApp(CURRENT_PRODUCT_ID);
+    }
+
+    async function loadProductDetail() {
+      const params = new URLSearchParams(window.location.search);
+      const productId = Number(params.get('id'));
+
+      if (!productId) {
+        document.getElementById('product-not-found').style.display = 'block';
+        return;
+      }
+
+      await productsReady;
+      const product = products.find(p => p.id === productId);
+
+      if (!product) {
+        document.getElementById('product-not-found').style.display = 'block';
+        return;
+      }
+
+      CURRENT_PRODUCT_ID = product.id;
+
+      document.title = `${product.name} | Habib Bridal`;
+      document.getElementById('breadcrumb-title').textContent = product.name;
+      document.getElementById('detail-main-img').src = product.image;
+      document.getElementById('detail-tag').textContent = product.badge || 'New';
+      renderDetailThumbs(product);
+      document.getElementById('detail-title').textContent = product.name;
+      document.getElementById('detail-description').textContent = product.description || 'No description available for this product yet.';
+
+      const rating = Math.round(product.rating || 0);
+      const starsEl = document.getElementById('detail-stars');
+      starsEl.innerHTML = Array.from({ length: 5 }, (_, i) =>
+        `<i class="fa-solid fa-star" style="${i < rating ? '' : 'opacity:0.25;'}"></i>`
+      ).join('');
+
+      const reviewCount = product.reviewCount || 0;
+      document.getElementById('detail-rating-count').textContent =
+        reviewCount > 0 ? `(${reviewCount} Verified Reviews)` : 'No reviews yet';
+
+      const meta = CATEGORY_META[product.category] || CATEGORY_META.women;
+      document.getElementById('detail-category-label').textContent = meta.label;
+      document.getElementById('detail-category-icon').className = `fa-solid ${meta.icon}`;
+
+      document.getElementById('product-detail-section').style.display = 'block';
+
+      renderRelatedProducts(product);
+    }
+
+    function renderDetailThumbs(product) {
+      const thumbsEl = document.getElementById('detail-thumbs');
+      if (!thumbsEl) return;
+
+      // Main image always first, followed by any additional gallery images.
+      const allImages = [product.image, ...(product.gallery || [])].filter(Boolean);
+
+      if (allImages.length <= 1) {
+        thumbsEl.innerHTML = '';
+        thumbsEl.className = 'thumbnail-grid';
+        return;
+      }
+
+      thumbsEl.className = 'thumbnail-grid';
+      thumbsEl.innerHTML = allImages.map((src, i) => `
+        <img src="${src}" alt="${product.name} view ${i + 1}" class="thumb-img ${i === 0 ? 'active' : ''}" onclick="selectDetailImage('${src.replace(/'/g, "\\'")}', this)">
+      `).join('');
+    }
+
+    function selectDetailImage(src, imgEl) {
+      document.getElementById('detail-main-img').src = src;
+      document.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
+      if (imgEl) imgEl.classList.add('active');
+    }
+
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function renderRelatedProducts(currentProduct) {
+      const pool = products.filter(p => p.id !== currentProduct.id);
+      const toShow = shuffleArray(pool).slice(0, 2);
+      if (toShow.length === 0) return;
+
+      const grid = document.getElementById('related-products-grid');
+      grid.innerHTML = toShow.map(p => {
+        const link = p.link || `product.html?id=${p.id}`;
+        return `
+          <div class="product-card" onclick="window.location.href='${link}'">
+            <div class="product-image-wrap">
+              <img src="${p.image}" alt="${p.name}" class="product-image">
+              <span class="product-tag">${p.badge || p.category}</span>
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">${p.name}</h3>
+              <button class="add-cart-btn">View Item</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('related-products-section').style.display = 'block';
+    }
+
+    document.addEventListener('DOMContentLoaded', loadProductDetail);
+  </script>
+</body>
+</html>
